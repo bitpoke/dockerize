@@ -1,14 +1,13 @@
-FROM golang:1.8.3-alpine3.6 AS binary
+FROM golang:1.13.6-alpine3.11 AS binary
+ENV GO111MODULE=on
 RUN apk -U add openssl git
 
 ADD . /go/src/github.com/jwilder/dockerize
 WORKDIR /go/src/github.com/jwilder/dockerize
 
-RUN go get github.com/robfig/glock
-RUN glock sync -n < GLOCKFILE
 RUN go install
 
-FROM alpine:3.6
+FROM alpine:3.11
 MAINTAINER Jason Wilder <mail@jasonwilder.com>
 
 COPY --from=binary /go/bin/dockerize /usr/local/bin
