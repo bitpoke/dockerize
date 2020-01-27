@@ -4,8 +4,8 @@ go 1.13
 
 require (
 	github.com/Masterminds/goutils v1.1.0
-	github.com/Masterminds/semver v1.5.0 // indirect
-	github.com/Masterminds/sprig v2.22.0+incompatible
+	github.com/Masterminds/semver/v3 v3.0.3
+	github.com/Masterminds/sprig/v3 v3.0.3-0.20200124041203-3c4c60440a40
 	github.com/elgs/gosplitargs v0.0.0-20161028071935-a491c5eeb3c8
 	github.com/google/uuid v1.1.1
 	github.com/huandu/xstrings v1.2.0
