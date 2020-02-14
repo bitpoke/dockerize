@@ -12,6 +12,7 @@ import (
 	"text/template"
 
 	"github.com/Masterminds/sprig/v3"
+	"github.com/alessio/shellescape"
 	"github.com/jwilder/gojq"
 )
 
@@ -56,10 +57,11 @@ func jsonQuery(jsonObj string, query string) (interface{}, error) {
 
 func generateFile(templatePath, destPath string) bool {
 	tmpl := template.New(filepath.Base(templatePath)).Funcs(sprig.TxtFuncMap()).Funcs(template.FuncMap{
-		"exists":    exists,
-		"parseUrl":  parseUrl,
-		"isTrue":    isTrue,
-		"jsonQuery": jsonQuery,
+		"exists":     exists,
+		"parseUrl":   parseUrl,
+		"isTrue":     isTrue,
+		"jsonQuery":  jsonQuery,
+		"shellquote": shellescape.Quote,
 	})
 
 	if len(delims) > 0 {
