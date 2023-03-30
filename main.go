@@ -38,6 +38,15 @@ func (c *Context) Env() map[string]string {
 	return env
 }
 
+func (c *Context) Os() map[string]string {
+    env := make(map[string]string)
+    env["UID"] = fmt.Sprintf("%d", os.Getuid())
+    env["GID"] = fmt.Sprintf("%d", os.Getgid())
+    env["EUID"] = fmt.Sprintf("%d", os.Geteuid())
+    env["EGID"] = fmt.Sprintf("%d", os.Getegid())
+    return env
+}
+
 var (
 	buildVersion string
 	version      bool
