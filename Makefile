@@ -1,4 +1,4 @@
-.PHONY : dockerize clean fmt
+.PHONY : all dockerize clean fmt dist-clean dist release
 
 TAG:=`git describe --abbrev=5 --dirty --tags`
 LDFLAGS:=-X main.buildVersion=$(TAG)
@@ -14,11 +14,13 @@ dist-clean:
 	rm -f dockerize-*.tar.gz
 
 dist: dist-clean
-	mkdir -p dist/linux/amd64 && GOOS=linux GOARCH=amd64 go build -a -tags netgo -ldflags "$(LDFLAGS)" -o dist/linux/amd64/dockerize
-	mkdir -p dist/linux/386 && GOOS=linux GOARCH=386 go build -a -tags netgo -ldflags "$(LDFLAGS)" -o dist/linux/386/dockerize
-	mkdir -p dist/darwin/amd64 && GOOS=darwin GOARCH=amd64 go build -a -tags netgo -ldflags "$(LDFLAGS)" -o dist/darwin/amd64/dockerize
+	mkdir -p dist/linux/amd64 && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -tags netgo -ldflags "$(LDFLAGS)" -o dist/linux/amd64/dockerize
+	mkdir -p dist/linux/arm64 && CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -tags netgo -ldflags "$(LDFLAGS)" -o dist/linux/arm64/dockerize
+	mkdir -p dist/darwin/amd64 && CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -tags netgo -ldflags "$(LDFLAGS)" -o dist/darwin/amd64/dockerize
+	mkdir -p dist/darwin/arm64 && CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -tags netgo -ldflags "$(LDFLAGS)" -o dist/darwin/arm64/dockerize
 
 release: dist
 	tar -cvzf dockerize-linux-amd64-$(TAG).tar.gz -C dist/linux/amd64 dockerize
-	tar -cvzf dockerize-linux-386-$(TAG).tar.gz -C dist/linux/386 dockerize
+	tar -cvzf dockerize-linux-arm64-$(TAG).tar.gz -C dist/linux/arm64 dockerize
 	tar -cvzf dockerize-darwin-amd64-$(TAG).tar.gz -C dist/darwin/amd64 dockerize
+	tar -cvzf dockerize-darwin-arm64-$(TAG).tar.gz -C dist/darwin/arm64 dockerize
