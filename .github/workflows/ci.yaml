@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - "release/*"
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    name: Build and smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: go.mod
+
+      - name: Build
+        run: go build -o dockerize .
+
+      - name: Check version
+        run: ./dockerize -version
+
+      - name: Smoke test template rendering and command execution
+        run: |
+          export SMOKE_TEST=passed
+          printf '%s\n' '{{ .Env.SMOKE_TEST }}' > "$RUNNER_TEMP/smoke.tmpl"
+          ./dockerize -template "$RUNNER_TEMP/smoke.tmpl:$RUNNER_TEMP/smoke.out"
+          test "$(cat "$RUNNER_TEMP/smoke.out")" = passed
+          ./dockerize /bin/sh -ec 'test "$SMOKE_TEST" = passed'
