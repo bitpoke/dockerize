@@ -1,6 +1,6 @@
 module github.com/presslabs/dockerize
 
-go 1.13
+go 1.27.3
 
 require (
 	github.com/Masterminds/goutils v1.1.0
@@ -17,3 +17,5 @@ require (
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
 	golang.org/x/net v0.0.0-20191014212845-da9a3fd4c582
 )
+
+require github.com/spf13/cast v1.3.0 // indirect
