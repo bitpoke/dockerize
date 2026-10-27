@@ -25,8 +25,16 @@
       "matchManagers": ["dockerfile"],
       "matchDatasources": ["docker"],
       "matchPackageNames": ["golang"],
+      "matchUpdateTypes": ["digest", "pinDigest"],
       "pinDigests": true,
       "prPriority": 10
+    },
+    {
+      "description": "Update Go and Alpine versions through their shared build arguments",
+      "matchManagers": ["dockerfile"],
+      "matchPackageNames": ["golang"],
+      "matchUpdateTypes": ["major", "minor", "patch", "pin"],
+      "enabled": false
     },
     {
       "groupName": "Go dependencies",
