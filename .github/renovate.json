@@ -12,7 +12,14 @@
   "labels": ["renovate"],
   "packageRules": [
     {
-      "groupName": "Go version",
+      "groupName": "Go and Alpine versions",
+      "matchDatasources": ["golang-version", "docker"],
+      "matchPackageNames": ["go", "golang", "alpine"],
+      "group": {
+        "commitMessageTopic": "{{#if (includes (lookupArray upgrades 'depName') 'alpine')}}{{#if (or (includes (lookupArray upgrades 'depName') 'go') (includes (lookupArray upgrades 'depName') 'golang'))}}Go and Alpine versions{{else}}Alpine version{{/if}}{{else}}Go version{{/if}}"
+      }
+    },
+    {
       "matchDatasources": ["golang-version"],
       "matchPackageNames": ["go"],
       "rangeStrategy": "bump",
@@ -21,12 +28,24 @@
       "prPriority": 10
     },
     {
-      "groupName": "Go version",
+      "description": "Treat the Dockerfile Go argument as an exact version, not a module compatibility range",
+      "matchManagers": ["custom.regex"],
+      "matchDatasources": ["golang-version"],
+      "matchPackageNames": ["go"],
+      "rangeStrategy": "replace"
+    },
+    {
       "matchManagers": ["dockerfile"],
       "matchDatasources": ["docker"],
       "matchPackageNames": ["golang"],
       "matchUpdateTypes": ["digest", "pinDigest"],
       "pinDigests": true,
+      "prPriority": 10
+    },
+    {
+      "matchManagers": ["dockerfile"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["alpine"],
       "prPriority": 10
     },
     {

@@ -1,4 +1,4 @@
-# renovate: datasource=golang-version depName=go
+# renovate: datasource=golang-version depName=go versioning=semver-coerced
 ARG GO_VERSION=1.13
 ARG ALPINE_VERSION=3.11
 
