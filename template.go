@@ -11,8 +11,8 @@ import (
 	"syscall"
 	"text/template"
 
+	"al.essio.dev/pkg/shellescape"
 	"github.com/Masterminds/sprig/v3"
-	"github.com/alessio/shellescape"
 	"github.com/jwilder/gojq"
 )
 
