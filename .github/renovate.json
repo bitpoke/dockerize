@@ -12,7 +12,7 @@
   "labels": ["renovate"],
   "packageRules": [
     {
-      "groupName": "Go version",
+      "groupName": "Go and Alpine versions",
       "matchDatasources": ["golang-version"],
       "matchPackageNames": ["go"],
       "rangeStrategy": "bump",
@@ -21,12 +21,19 @@
       "prPriority": 10
     },
     {
-      "groupName": "Go version",
+      "groupName": "Go and Alpine versions",
       "matchManagers": ["dockerfile"],
       "matchDatasources": ["docker"],
       "matchPackageNames": ["golang"],
       "matchUpdateTypes": ["digest", "pinDigest"],
       "pinDigests": true,
+      "prPriority": 10
+    },
+    {
+      "groupName": "Go and Alpine versions",
+      "matchManagers": ["dockerfile"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["alpine"],
       "prPriority": 10
     },
     {
