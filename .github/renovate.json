@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":gitSignOff",
+    "helpers:pinGitHubActionDigests",
+    "customManagers:dockerfileVersions",
+    "customManagers:githubActionsVersions",
+    "customManagers:makefileVersions"
+  ],
+  "dependencyDashboard": true,
+  "labels": ["renovate"],
+  "packageRules": [
+    {
+      "groupName": "Go version",
+      "matchDatasources": ["golang-version"],
+      "matchPackageNames": ["go"],
+      "rangeStrategy": "bump",
+      "minimumReleaseAge": "7 days",
+      "allowedVersions": "/^\\d+\\.\\d+\\.[1-9]\\d*$/",
+      "prPriority": 10
+    },
+    {
+      "groupName": "Go version",
+      "matchManagers": ["dockerfile"],
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["golang"],
+      "pinDigests": true,
+      "prPriority": 10
+    },
+    {
+      "groupName": "Go dependencies",
+      "matchManagers": ["gomod"],
+      "matchPackageNames": ["!go"],
+      "postUpdateOptions": ["gomodTidy", "gomodUpdateImportPaths"]
+    }
+  ]
+}
