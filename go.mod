@@ -4,7 +4,7 @@ go 1.27.3
 
 require (
 	github.com/Masterminds/sprig/v3 v3.3.0
-	github.com/alessio/shellescape v0.0.0-20190409004728-b115ca0f9053
+	github.com/alessio/shellescape v1.6.1
 	github.com/jwilder/gojq v0.0.0-20161018055142-c550732d4a52
 	golang.org/x/net v0.61.0
 )
