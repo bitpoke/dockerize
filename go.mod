@@ -6,7 +6,7 @@ require (
 	al.essio.dev/pkg/shellescape v1.6.1
 	github.com/Masterminds/sprig/v3 v3.3.0
 	github.com/jwilder/gojq v0.0.0-20161018055142-c550732d4a52
-	golang.org/x/net v0.62.0
+	golang.org/x/net v0.63.0
 )
 
 require (
@@ -20,5 +20,5 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/spf13/cast v1.7.0 // indirect
-	golang.org/x/crypto v0.58.0 // indirect
+	golang.org/x/crypto v0.59.0 // indirect
 )
